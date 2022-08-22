@@ -49,22 +49,34 @@ class _HomeScreenState extends State<HomeScreen> {
     },
     {
       'questionText': 'How many minutes are there in an hour?',
-      'answerTheQuestions': ['27', '48', '55', '60'],
+      'answerTheQuestions': [
+        {'text': '27', 'score': 0},
+        {'text': '48', 'score': 0},
+        {'text': '55', 'score': 0},
+        {'text': '60', 'score': 10},
+      ],
     },
   ];
   int questionIndex = 0;
   int totalScore = 0;
 
-  void answerTheQuestion() {
-
+  void answerTheQuestion(int score) {
     setState(() {
       questionIndex += 1;
-      // totalScore += score;
+      totalScore += score;
     });
     if (questionIndex < question.length) {
       print('We have no more questions');
     }
     print(questionIndex);
+  }
+
+  @override
+  void resetQuiz() {
+    setState((){
+      questionIndex = 0;
+      totalScore = 0;
+    });
   }
 
   @override
@@ -79,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               questionIndex: questionIndex,
               question: question,
             )
-          : Result(),
+          : Result(totalScore, resetQuiz),
     );
   }
 }

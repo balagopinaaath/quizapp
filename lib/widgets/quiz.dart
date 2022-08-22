@@ -5,7 +5,7 @@ import 'package:quizapp/answer.dart';
 class Quiz extends StatelessWidget {
   final List<Map<String, Object>> question;
   final int questionIndex;
-  final VoidCallback answerTheQuestion;
+  final Function answerTheQuestion;
 
   Quiz({
     required this.question,
@@ -23,10 +23,9 @@ class Quiz extends StatelessWidget {
         ...(question[questionIndex]['answerTheQuestions']
                 as List<Map<String, Object>>)
             .map((answer) => Answer(
-                () => answerTheQuestion(),
+                () => answerTheQuestion(answer['score']),
                 answer['text'] as String))
             .toList()
-        // ElevatedButton(onPressed: answerTheQuestion, child: Text('Answer')),
       ],
     );
   }
